@@ -8,19 +8,19 @@ import {PriceConverter} from "./PriceConverter.sol";
 error NotOwner();
 
 contract FundMe {
-    using PriceConverter for uint256;//uint256类型可以使用PriceConverter库中的函数 
+    using PriceConverter for uint256; //uint256类型可以使用PriceConverter库中的函数
 
     mapping(address => uint256) private s_addressToAmountFunded;
     address[] private s_funders;
 
     // Could we make this constant?  /* hint: no! We should make it immutable! */
-    address private  immutable  i_owner;
+    address private immutable i_owner;
     uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
     AggregatorV3Interface private s_pricefeed;
+
     constructor(address pricefeed) {
         i_owner = msg.sender;
         s_pricefeed = AggregatorV3Interface(pricefeed);
-
     }
 
     function fund() public payable {
@@ -41,6 +41,7 @@ contract FundMe {
         if (msg.sender != i_owner) revert NotOwner();
         _;
     }
+
     function cheaperWithdraw() public onlyOwner {
         //s_funders 是存储到内存当中的每次读取写入都非常消耗gas
         uint256 fundersLength = s_funders.length;
@@ -100,13 +101,15 @@ contract FundMe {
     }
 
     // Getters
-    function getAddressToAmountFund(address funder) public view returns(uint256){
+    function getAddressToAmountFund(address funder) public view returns (uint256) {
         return s_addressToAmountFunded[funder];
     }
-    function getFunder(uint256 index) public view returns(address){
+
+    function getFunder(uint256 index) public view returns (address) {
         return s_funders[index];
     }
-    function getOwner() external view returns(address){
+
+    function getOwner() external view returns (address) {
         return i_owner;
     }
 }
