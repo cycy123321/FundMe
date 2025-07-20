@@ -1,0 +1,8 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+remappings = ["@chainlink/=lib/chainlink-brownie-contracts/"]
+fs_permissions = [{access = "read-write", path = "./"}]
+#lib/chainlink-brownie-contracts/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
